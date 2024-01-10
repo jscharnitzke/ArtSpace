@@ -5,10 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,9 +23,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.artspace.ui.theme.ArtSpaceTheme
 
 class MainActivity : ComponentActivity() {
@@ -72,16 +80,16 @@ fun MainContent(modifier: Modifier = Modifier) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize().padding(16.dp)
     ) {
-        ArtCanvas(image = artId, modifier = modifier.weight(6f))
+        ArtCanvas(image = artId, modifier = modifier.weight(1f))
         ArtAttributions(
             artist = artist,
-            modifier = modifier.weight(2f),
+            modifier = modifier,
             title = title,
             year = year
         )
-        Controls(modifier = modifier.weight(2f))
+        Controls(modifier = modifier)
     }
 }
 
@@ -92,10 +100,28 @@ fun ArtAttributions(
     title: String,
     year: String
 ) {
-    Row(modifier = modifier) {
-        Text(text = title)
-        Text(text = artist)
-        Text(text = year)
+    Row(modifier = modifier
+        .background(color = colorResource(R.color.attribution_background))
+        .fillMaxWidth()
+        .padding(16.dp)
+    ) {
+        Column {
+            Row { Text(
+                fontSize = 32.sp,
+                modifier = modifier,
+                text = title
+            ) }
+            Row {
+                Text(
+                    fontWeight = FontWeight.Bold,
+                    modifier = modifier,
+                    text = artist
+                )
+                Text(
+                    text = " ($year)"
+                )
+            }
+        }
     }
 }
 
@@ -108,7 +134,15 @@ fun ArtCanvas(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Image(contentDescription = null, painter = painterResource(id = image))
+        Surface(
+            modifier = modifier.shadow(8.dp)
+        ) {
+            Image(
+                contentDescription = null,
+                modifier = modifier.padding(24.dp),
+                painter = painterResource(id = image)
+            )
+        }
     }
 }
 
@@ -118,6 +152,7 @@ fun Controls(modifier: Modifier = Modifier) {
         Text(text = "Controls")
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
