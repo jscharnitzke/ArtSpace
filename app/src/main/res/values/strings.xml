@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Art Space</string>
+    <string name="river_landscape_artist">Annibale Carracci</string>
+    <string name="moonlit_landscape_artist">Aert van der Neer</string>
+    <string name="ships_in_distress_artist">Ludolf Backhuysen</string>
+    <string name="river_landscape_year">1590</string>
+    <string name="moonlit_landscape_year">1648/1650</string>
+    <string name="ships_in_distress_year">1667</string>
+    <string name="river_landscape_title">River Landscape</string>
+    <string name="moonlit_landscape_title">Moonlit Landscape with Bridge</string>
+    <string name="ships_in_distress_title">Ships in Distress off a Rocky Coast</string>
 </resources>
