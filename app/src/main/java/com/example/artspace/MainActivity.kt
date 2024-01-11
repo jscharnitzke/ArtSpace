@@ -94,7 +94,11 @@ fun MainContent(modifier: Modifier = Modifier) {
             title = title,
             year = year
         )
-        Controls(modifier = modifier)
+        Controls(
+            modifier = modifier,
+            onClickNext = { index = (index + 1) % 3 },
+            onClickPrevious = { index = if(index > 0) (index - 1) % 3 else 2 }
+        )
     }
 }
 
@@ -152,7 +156,11 @@ fun ArtCanvas(
 }
 
 @Composable
-fun Controls(modifier: Modifier = Modifier) {
+fun Controls(
+    modifier: Modifier = Modifier,
+    onClickNext: () -> Unit,
+    onClickPrevious: () -> Unit
+) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
@@ -163,7 +171,7 @@ fun Controls(modifier: Modifier = Modifier) {
             modifier = modifier
                 .padding(horizontal = 4.dp)
                 .weight(1f),
-            onClick = { /*TODO*/ }
+            onClick = onClickPrevious
         ) {
             Text(text = stringResource(R.string.previous_button_text))
         }
@@ -174,7 +182,7 @@ fun Controls(modifier: Modifier = Modifier) {
             modifier = modifier
                 .padding(horizontal = 4.dp)
                 .weight(1f),
-            onClick = { /*TODO*/ }
+            onClick = onClickNext
         ) {
             Text(text = stringResource(R.string.next_button_text))
         }
