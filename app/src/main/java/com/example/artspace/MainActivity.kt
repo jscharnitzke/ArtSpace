@@ -9,9 +9,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -80,7 +83,9 @@ fun MainContent(modifier: Modifier = Modifier) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxSize().padding(16.dp)
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
     ) {
         ArtCanvas(image = artId, modifier = modifier.weight(1f))
         ArtAttributions(
@@ -148,8 +153,31 @@ fun ArtCanvas(
 
 @Composable
 fun Controls(modifier: Modifier = Modifier) {
-    Row(modifier = Modifier) {
-        Text(text = "Controls")
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 32.dp, bottom = 8.dp),
+    ) {
+        Button(
+            modifier = modifier
+                .padding(horizontal = 4.dp)
+                .weight(1f),
+            onClick = { /*TODO*/ }
+        ) {
+            Text(text = stringResource(R.string.previous_button_text))
+        }
+
+        Spacer(modifier = modifier.width(32.dp))
+
+        Button(
+            modifier = modifier
+                .padding(horizontal = 4.dp)
+                .weight(1f),
+            onClick = { /*TODO*/ }
+        ) {
+            Text(text = stringResource(R.string.next_button_text))
+        }
     }
 }
 

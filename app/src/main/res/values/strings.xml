@@ -9,4 +9,6 @@
     <string name="river_landscape_title">River Landscape</string>
     <string name="moonlit_landscape_title">Moonlit Landscape with Bridge</string>
     <string name="ships_in_distress_title">Ships in Distress off a Rocky Coast</string>
+    <string name="previous_button_text">Previous</string>
+    <string name="next_button_text">Next</string>
 </resources>
