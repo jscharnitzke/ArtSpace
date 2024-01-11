@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +38,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.artspace.ui.theme.ArtSpaceTheme
 
+class Art(
+    @StringRes val artist: Int,
+    @DrawableRes val image: Int,
+    @StringRes val title: Int,
+    @StringRes val year: Int
+) {}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,29 +65,26 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainContent(modifier: Modifier = Modifier) {
     var index by remember { mutableIntStateOf(0) }
-
-    val artId = when(index) {
-        0 -> R.drawable.river_landscape_1952_5_58
-        1 -> R.drawable.moonlit_landscape_with_bridge_1990_6_1
-        else -> R.drawable.ships_in_distress_off_a_rocky_coast_1985_29_1
-    }
-
-    val artist = when(index) {
-        0 -> stringResource(R.string.river_landscape_artist)
-        1 -> stringResource(R.string.moonlit_landscape_artist)
-        else -> stringResource(R.string.ships_in_distress_artist)
-    }
-
-    val year = when(index) {
-        0 -> stringResource(R.string.river_landscape_year)
-        1 -> stringResource(R.string.moonlit_landscape_year)
-        else -> stringResource(R.string.ships_in_distress_year)
-    }
-
-    val title = when(index) {
-        0 -> stringResource(R.string.river_landscape_title)
-        1 -> stringResource(R.string.moonlit_landscape_title)
-        else -> stringResource(R.string.ships_in_distress_title)
+    
+    val art = when(index) {
+        0 -> Art(
+            artist = R.string.river_landscape_artist,
+            image = R.drawable.river_landscape_1952_5_58,
+            title = R.string.river_landscape_title,
+            year = R.string.river_landscape_year
+        )
+        1 -> Art(
+            artist = R.string.moonlit_landscape_artist,
+            image = R.drawable.moonlit_landscape_with_bridge_1990_6_1,
+            title = R.string.moonlit_landscape_title,
+            year = R.string.moonlit_landscape_year
+        )
+        else -> Art(
+            artist = R.string.ships_in_distress_artist,
+            image = R.drawable.ships_in_distress_off_a_rocky_coast_1985_29_1,
+            title = R.string.ships_in_distress_title,
+            year = R.string.ships_in_distress_year
+        )
     }
 
     Column(
@@ -88,13 +93,8 @@ fun MainContent(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        ArtCanvas(image = artId, modifier = modifier.weight(1f))
-        ArtAttributions(
-            artist = artist,
-            modifier = modifier,
-            title = title,
-            year = year
-        )
+        ArtCanvas(art = art, modifier = modifier.weight(1f))
+        ArtAttributions(art = art)
         Controls(
             modifier = modifier,
             onClickNext = { index = (index + 1) % 3 },
@@ -105,10 +105,8 @@ fun MainContent(modifier: Modifier = Modifier) {
 
 @Composable
 fun ArtAttributions(
-    artist: String,
+    art: Art,
     modifier: Modifier = Modifier,
-    title: String,
-    year: String
 ) {
     Row(modifier = modifier
         .background(color = colorResource(R.color.attribution_background))
@@ -121,7 +119,7 @@ fun ArtAttributions(
                 fontWeight = FontWeight.Light,
                 lineHeight = 36.sp,
                 modifier = modifier,
-                text = title
+                text = stringResource(id = art.title)
             ) }
 
             Spacer(modifier = modifier.height(16.dp))
@@ -130,10 +128,10 @@ fun ArtAttributions(
                 Text(
                     fontWeight = FontWeight.Bold,
                     modifier = modifier,
-                    text = artist
+                    text = stringResource(id = art.artist)
                 )
                 Text(
-                    text = " ($year)"
+                    text = " (${stringResource(id = art.year)}))"
                 )
             }
         }
@@ -142,7 +140,7 @@ fun ArtAttributions(
 
 @Composable
 fun ArtCanvas(
-    @DrawableRes image: Int,
+    art: Art,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -155,7 +153,7 @@ fun ArtCanvas(
             Image(
                 contentDescription = null,
                 modifier = modifier.padding(24.dp),
-                painter = painterResource(id = image)
+                painter = painterResource(id = art.image)
             )
         }
     }
