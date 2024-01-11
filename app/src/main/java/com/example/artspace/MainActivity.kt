@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -117,9 +118,14 @@ fun ArtAttributions(
         Column {
             Row { Text(
                 fontSize = 32.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 36.sp,
                 modifier = modifier,
                 text = title
             ) }
+
+            Spacer(modifier = modifier.height(16.dp))
+            
             Row {
                 Text(
                     fontWeight = FontWeight.Bold,
