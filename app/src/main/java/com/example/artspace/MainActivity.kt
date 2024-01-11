@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -93,8 +94,9 @@ fun MainContent(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        ArtCanvas(art = art, modifier = modifier.weight(1f))
-        ArtAttributions(art = art)
+        ArtCanvas(art = art, modifier = modifier.sizeIn(maxWidth = 768.dp).weight(1f))
+        Spacer(modifier = modifier.height(16.dp))
+        ArtAttributions(art = art, modifier = modifier.sizeIn(maxWidth = 768.dp))
         Controls(
             modifier = modifier,
             onClickNext = { index = (index + 1) % 3 },
@@ -131,7 +133,7 @@ fun ArtAttributions(
                     text = stringResource(id = art.artist)
                 )
                 Text(
-                    text = " (${stringResource(id = art.year)}))"
+                    text = " (${stringResource(id = art.year)})"
                 )
             }
         }
@@ -174,7 +176,7 @@ fun Controls(
         Button(
             modifier = modifier
                 .padding(horizontal = 4.dp)
-                .weight(1f),
+                .width(160.dp),
             onClick = onClickPrevious
         ) {
             Text(text = stringResource(R.string.previous_button_text))
@@ -185,7 +187,7 @@ fun Controls(
         Button(
             modifier = modifier
                 .padding(horizontal = 4.dp)
-                .weight(1f),
+                .width(160.dp),
             onClick = onClickNext
         ) {
             Text(text = stringResource(R.string.next_button_text))
